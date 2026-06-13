@@ -163,7 +163,7 @@ function Checkout({ carrito, onPedidoCompleto }) {
                     <input style={styles.input} type="password" value={form.password} onChange={e => setForm({ ...form, password: e.target.value })} />
                   </div>
                   <div style={styles.fieldGroup}>
-                    <label style={styles.label}>Nombre</label>
+                    <label style={styles.label}>Nombres</label>
                     <input style={styles.input} value={form.nombre} onChange={e => setForm({ ...form, nombre: e.target.value })} />
                   </div>
                   <div style={styles.formBtns}>
@@ -180,7 +180,7 @@ function Checkout({ carrito, onPedidoCompleto }) {
                     <input style={styles.input} type="email" value={form.email} onChange={e => setForm({ ...form, email: e.target.value })} />
                   </div>
                   <div style={styles.fieldGroup}>
-                    <label style={styles.label}>Nombre</label>
+                    <label style={styles.label}>Nombres</label>
                     <input style={styles.input} value={form.nombre} onChange={e => setForm({ ...form, nombre: e.target.value })} />
                   </div>
                   <div style={styles.formBtns}>
@@ -197,7 +197,7 @@ function Checkout({ carrito, onPedidoCompleto }) {
             <div style={styles.formCard}>
               <h2 style={styles.formTitle}>Datos de Envío</h2>
               <div style={styles.fieldGroup}>
-                <label style={styles.label}>Nombre</label>
+                <label style={styles.label}>Nombres</label>
                 <input style={styles.input} value={form.nombre} onChange={e => setForm({ ...form, nombre: e.target.value })} />
               </div>
               <div style={styles.fieldGroup}>
@@ -207,15 +207,11 @@ function Checkout({ carrito, onPedidoCompleto }) {
               <div style={styles.fieldGroup}>
                 <label style={styles.label}>RUT</label>
                 <input style={styles.input} placeholder="12345678-9" value={form.rut} onChange={e => setForm({ ...form, rut: e.target.value })} />
-              </div>
-              <div style={styles.fieldGroup}>
+                </div>
+                <div style={styles.fieldGroup}>
                 <label style={styles.label}>Teléfono</label>
                 <input style={styles.input} placeholder="+56 9 1234 5678" value={form.telefono} onChange={e => setForm({ ...form, telefono: e.target.value })} />
-              </div>
-              <div style={styles.fieldGroup}>
-                <label style={styles.label}>Dirección</label>
-                <input style={styles.input} value={form.direccion} onChange={e => setForm({ ...form, direccion: e.target.value })} />
-              </div>
+                </div>
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
                 <div style={styles.fieldGroup}>
                   <label style={styles.label}>Región</label>

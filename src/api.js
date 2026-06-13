@@ -1,4 +1,6 @@
-const API_URL = 'http://localhost:4000/api'
+const API_URL = window.location.hostname === 'localhost'
+  ? 'http://localhost:4000/api'
+  : 'https://peralta-import-api.onrender.com/api'
 
 // Guardar y obtener token
 export function guardarToken(token) {

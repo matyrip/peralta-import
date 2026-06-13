@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { crearPedido, registroCliente, login } from '../api'
+import config from '../config'
 
 function Checkout({ carrito, onPedidoCompleto }) {
   const navigate = useNavigate()
@@ -286,16 +287,38 @@ function Checkout({ carrito, onPedidoCompleto }) {
           )}
 
           {/* PASO 4: CONFIRMACIÓN */}
-          {paso === 4 && (
-            <div style={styles.formCard}>
-              <div style={{ textAlign: 'center', padding: '40px' }}>
-                <div style={{ fontSize: '64px', marginBottom: '20px' }}>✅</div>
-                <h2 style={{ fontWeight: 900, fontSize: '28px', marginBottom: '12px', color: 'white' }}>¡Pedido Confirmado!</h2>
-                <p style={{ color: '#888', marginBottom: '32px' }}>Te enviamos los detalles a {form.email}</p>
-                <button onClick={() => navigate('/')} style={styles.btnPrimary}>Volver a la Tienda</button>
-              </div>
-            </div>
-          )}
+{paso === 4 && (
+  <div style={styles.formCard}>
+    <div style={{ textAlign: 'center', padding: '40px 20px' }}>
+      <div style={{ fontSize: '64px', marginBottom: '20px' }}>✅</div>
+      <h2 style={{ fontWeight: 900, fontSize: '28px', marginBottom: '12px', color: 'white' }}>¡Pedido Confirmado!</h2>
+      <p style={{ color: '#888', marginBottom: '32px' }}>Te enviamos los detalles a {form.email}</p>
+
+      {form.metodo_pago === 'transferencia' && (
+        <div style={styles.datosBanco}>
+          <h3 style={{ fontWeight: 700, fontSize: '16px', marginBottom: '20px', textTransform: 'uppercase', color: '#E8001D' }}>Datos para Transferencia</h3>
+          <p style={{ color: '#888', fontSize: '13px', marginBottom: '16px' }}>Transferí el monto total y enviá el comprobante por WhatsApp</p>
+
+          <div style={styles.bancoCard}>
+            <div style={styles.bancoRow}><span style={styles.bancoLabel}>Banco</span><span style={styles.bancoValue}>{config.banco.cuentaVista.banco}</span></div>
+            <div style={styles.bancoRow}><span style={styles.bancoLabel}>Tipo</span><span style={styles.bancoValue}>{config.banco.cuentaVista.tipo}</span></div>
+            <div style={styles.bancoRow}><span style={styles.bancoLabel}>Número</span><span style={styles.bancoValue}>{config.banco.cuentaVista.numero}</span></div>
+            <div style={styles.bancoRow}><span style={styles.bancoLabel}>RUT</span><span style={styles.bancoValue}>{config.banco.cuentaVista.rut}</span></div>
+            <div style={styles.bancoRow}><span style={styles.bancoLabel}>Nombre</span><span style={styles.bancoValue}>{config.banco.cuentaVista.nombre}</span></div>
+            <div style={styles.bancoRow}><span style={styles.bancoLabel}>Email</span><span style={styles.bancoValue}>{config.banco.cuentaVista.email}</span></div>
+            <div style={styles.bancoRow}><span style={styles.bancoLabel}>Monto</span><span style={{ ...styles.bancoValue, color: '#E8001D', fontWeight: 900, fontSize: '18px' }}>${total.toLocaleString()}</span></div>
+          </div>
+
+          <a href={`https://wa.me/${config.whatsapp}?text=${encodeURIComponent('¡Hola! Acabo de realizar una transferencia por $' + total.toLocaleString() + '. Adjunto comprobante.')}`} target="_blank" style={{ ...styles.btnWhatsApp, marginTop: '20px', display: 'inline-block' }}>
+            💬 Enviar Comprobante por WhatsApp
+          </a>
+        </div>
+      )}
+
+      <button onClick={() => navigate('/')} style={{ ...styles.btnPrimary, marginTop: '24px' }}>Volver a la Tienda</button>
+    </div>
+  </div>
+)}
         </div>
 
         {/* RESUMEN */}
@@ -499,6 +522,34 @@ const styles = {
     justifyContent: 'space-between',
     marginBottom: '8px',
     fontSize: '14px',
+  },
+  datosBanco: {
+    background: '#1e1e1e',
+    border: '1px solid rgba(255,255,255,0.08)',
+    padding: '24px',
+    textAlign: 'left',
+    maxWidth: '400px',
+    margin: '0 auto',
+  },
+  bancoCard: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '8px',
+  },
+  bancoRow: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    padding: '8px 0',
+    borderBottom: '1px solid rgba(255,255,255,0.04)',
+  },
+  bancoLabel: {
+    color: '#888',
+    fontSize: '13px',
+  },
+  bancoValue: {
+    color: 'white',
+    fontSize: '14px',
+    fontWeight: 500,
   },
 }
 
